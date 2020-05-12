@@ -15,8 +15,8 @@ var searchRequest = null;
             if (value1.length >= minlength) {
               searchRequest = $.ajax({
 
-                  type: "GET",
-                  url: "/dictionary/api/english/findPhrases.php",
+                  type: "POST",
+                  url: "/dictionary/api/findPhrases.php",
                   data: {
                        'tablename' : value,
                        'pattern' : value1
@@ -26,35 +26,11 @@ var searchRequest = null;
 
                       console.log(data);
                       var json_obj = $.parseJSON(data);
-                     
-                      var lang = $('option:selected',"#lang").attr('value');
-                      var output = "<ul>";
-                      switch (lang){
-                         case "spanish" : 
-                               for(i=0; i < json_obj.data.length; i++){
-                                  output += "<li>" + json_obj.data[i].phrase + " : " + json_obj.data[i].phraseSp + "</li>"; 
-                                } 
-                         break;
-                         case "french" : 
-                                for(i=0; i < json_obj.data.length; i++){
-                                   output += "<li>" + json_obj.data[i].phrase + " : " + json_obj.data[i].phraseFr + "</li>";
-                                }
-                         break; 
-                         case "german" : 
-                                for(i=0; i < json_obj.data.length; i++){
-                                   output += "<li>" + json_obj.data[i].phrase + " : " + json_obj.data[i].phraseGr + "</li>";
-                                }
-                         break;
-                         case "russian" : 
-                                for(i=0; i < json_obj.data.length; i++){
-                                   output += "<li>" + json_obj.data[i].phrase + " : " + json_obj.data[i].phraseRu + "</li>";
-                                }
-                         break                  
-                       }
-                                            
-                      output += "</ul>";
-                      $("#result").html(output);
-                    
+                      var out = JSON.stringify(json_obj);
+                      console.log(out);
+                      var outp = out.replace(/[{},]/g, " <br>");
+                      var output = outp.replace(/["]/g, " ");
+                      $("#result").html(output);                    
                   },
                   dataType: "html",
                   error: function(){
@@ -74,21 +50,19 @@ var searchRequest = null;
 $(function(){
     var minlength = 3; 
     $("#btnAddTrans").click(function(){
-      var that = $("#phrEn"),
       val = $("#phrEn").val();
       val1 = val.replace(/[+'[|?<>@.\],\/#!$%\^&\*;:{}=\-_`~()]/g, "");
       value = val1.replace(/\s{2,}/g, " ");
-      var lang = $('option:selected',"#lang"), 
       value1 = $('option:selected',"#lang").attr('value'); 
-      var other = $("#phr"),
       val2 = $("#phr").val();
       val3 = val2.replace(/[+'[|.?!<>@\],\/#$%\^&\*;:{}=\-_`~()]/g, "");
-      value2 = val1.replace(/\s{2,}/g, " ");
-       console.log();
+      value2 = val2.replace(/\s{2,}/g, " ");
+       console.log(value2);
+       console.log(value);
       if(value.length >= minlength && value2.length >= minlength){
           searchRequest = $.ajax({
-             type: 'GET',
-             url: '/dictionary/api/english/addTranslation.php',
+             type: 'POST',
+             url: '/dictionary/api/addTranslation.php',
              data: {
                    'enPhrase' : value,
                    'tablename' : value1,
@@ -96,11 +70,15 @@ $(function(){
              },
              dataType: "json",
              success: function(data){
-               console.log(data);
-               $("#result").html("Translation added");
+                 
+                var out = JSON.stringify(data);
+                console.log(out);
+                var outp = out.replace(/[{},":]/g, "");
+                var output = outp.replace("message", "");
+                $("#result").html(output + " for " + value1 + " language.");
              },
              error: function(){
-               $("#result").html("Probably the phrase is already in database");
+               $("#result").html("Error");
              }
           });
       } else {
@@ -120,18 +98,21 @@ $(function(){
       val1 = val.replace(/[+'[.?!|<>@\],\/#$%\^&\*;:{}=\-_`~()]/g, "");
       value = val1.replace(/\s{2,}/g, " ");
       if (value.length >= minlength){
+        console.log(value);
           searchRequest = $.ajax({
-              type: "GET",
-              url: "/dictionary/api/english/createPhrase.php",
+              type: "POST",
+              url: "/dictionary/api/createPhrase.php",
               data: {
                 'phrase': value
               },
               dataType: "json",
               success: function(data){
                 console.log(data);
-                  $("#result").html("Phrase created");
-                  console.log(data);
-                 // alert("Phrase created");
+                var out = JSON.stringify(data);
+                console.log(out);
+                var outp = out.replace(/[{},":]/g, "");
+                var output = outp.replace("message", "");
+                $("#result").html(output);
               },
               error: function(){
                 $("#result").html("Error");

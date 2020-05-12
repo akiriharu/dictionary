@@ -51,7 +51,7 @@
              </div>
           </div>
           <div class="result">
-            <p>The result will displayed here</p>
+            <p>The result will be displayed here</p>
             <p id="result">Test</p>
           </div>
           
