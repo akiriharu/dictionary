@@ -78,7 +78,7 @@ $(function(){
                 $("#result").html(output + " for " + value1 + " language.");
              },
              error: function(){
-               $("#result").html("Error");
+               $("#result").html("Error. Check if English phrase is in the database.");
              }
           });
       } else {
@@ -119,7 +119,7 @@ $(function(){
               }
           });
       } else {
-        alert("Please insert the word with at least 3 letters length.");
+        alert("Please insert the phrase with at least 3 letters length.");
       }  
      });
   });

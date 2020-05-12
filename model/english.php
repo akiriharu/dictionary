@@ -33,27 +33,19 @@ class English {
 
      }
 
-   //get methods
-     public function getPhrases(){
-        $query = 'SELECT * FROM '.$this->table;
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([]);
-
-        return $stmt;
-     }
-
-     
-
-     //do not use
+   
+     //get methods
      public function getOnePhrase(){
-        $query = 'SELECT * FROM ' .$this->table. ' where id = ?';
+        $query = 'SELECT * FROM ' .$this->table. ' where phrase = :phrase';
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(1, $this->id);
-        $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $this->phrase = $row['phrase'];
+        $stmt->bindParam('phrase', $this->phrase);
+        if($stmt->execute()){
+           return true;
+        } else {
+           return false;
+        }
+        
      }
 
      public function getId($enPhrase){

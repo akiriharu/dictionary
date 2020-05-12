@@ -17,9 +17,7 @@ $lEnglish = new English($db);
 // get raw data
 $phrase = $_POST['phrase'];
 
-
-$lEnglish->phrase = $phrase;
-
+ $lEnglish->phrase = $phrase;
 if($lEnglish->createPhrase()){
     
     echo json_encode(
@@ -30,4 +28,5 @@ if($lEnglish->createPhrase()){
          array('message' => 'Phrase Not Created')
     ); 
 }
+
 
