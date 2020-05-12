@@ -15,21 +15,22 @@ $db = $database->connect();
 $lEnglish = new English($db);
 
 // get raw data
-$phrase = $_GET['phrase'];
-//echo $phrase;
+$phr = $_GET['phrase'];
 
-//if(strlen($phrase) !== 0){
+$phrase = str_replace("[^\w\s]", "", $phr);
+
+
 $lEnglish->phrase = $phrase;
 
 if($lEnglish->createPhrase()){
     echo json_encode(
-          array('message' => 'Phrase Created!')
+          array('message' => 'Phrase Created!    ')
     );
   }else {
     echo json_encode(
          array('message' => 'Phrase Not Created')
     ); 
 }
-//}
+
 
 //echo $phrase;

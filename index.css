@@ -1,0 +1,118 @@
+html {
+    background: linear-gradient(-55deg, rgba(65, 131, 215, 1), rgba(123, 239, 178, 1)) no-repeat center fixed;
+    background-size: cover;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 500px 500px 1fr;
+    grid-template-areas: 
+    ". title title ." 
+    ". header header ." 
+    ". content content ."
+    ". result result .";
+    grid-gap: 20px;
+}
+
+.title {
+    grid-area: title;
+    margin-top: 20px;
+}
+
+.header {
+    grid-area: header;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.content {
+    grid-area: content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+    "label dropdown"
+    "enform otherform"
+    "btn btn";
+
+}
+
+.label {
+    grid-area: label;   
+}
+
+.dropdown {
+    grid-area: dropdown;
+}
+
+.enform {
+    grid-area: enform;
+}
+
+.otherform {
+    grid-area: otherform;
+}
+
+.btn {
+    grid-area: btn;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 
+    "btn1 btn2 btn3";
+}
+
+.btn1 {
+    grid-area: btn1;
+    margin-left: 10px;
+}
+
+.btn2 {
+    grid-area: btn2;
+    margin-left: 25px;
+}
+
+.btn3 {
+    grid-area: btn3;
+}
+
+textarea {
+    height: 135px;
+    resize: none;
+    border-width: medium;
+    border-radius: 8px;
+    margin: 5px;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 16px;
+    background-color: rgba(232, 255, 237, 1);
+}
+
+.button {
+    border-width: medium;
+    border-radius: 8px;
+    background-color: #91fa95;
+    color: #4a544a;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.result {
+    grid-area: result;
+    margin-top: 10px;
+}
+option {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 16px;
+    background-color: rgba(232, 255, 237, 1);
+} 
+select {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 16px;
+    background-color: rgba(232, 255, 237, 1);
+}
